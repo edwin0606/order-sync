@@ -52,22 +52,22 @@ def order_create():
     if customer_id is None or number is None:
         return error500()
 
-    order = {
-        'customer_id': customer_id,
-        'order_id': str(uuid.uuid4()),
-        'number': number,
-        'status': 'pending'
-    }
-    incomplete_key = ds_client.key('Order')
-    print("Conectado con la base de datos")
-    order_entity = datastore.Entity(key=incomplete_key)
-    print(order_entity)
-    order_entity.update(order)
-    ds_client.put(order_entity)
-    print("order entity")
-    print(order_entity)
-
-    return order, 200
+    try:
+        order = {
+            'customer_id': customer_id,
+            'order_id': str(uuid.uuid4()),
+            'number': number,
+            'status': 'pending'
+        }
+        incomplete_key = ds_client.key('Order')
+        order_entity = datastore.Entity(key=incomplete_key)
+        order_entity.update(order)
+        ds_client.put(order_entity)
+        print(order)
+        return order, 200
+    except Exception as e:
+        print("Error")
+        print("Error creado orden")
 
 
 @app.route('/api/v1/order/get', methods=['POST'])
