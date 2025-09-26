@@ -64,6 +64,8 @@ def order_create():
     print(order_entity)
     order_entity.update(order)
     ds_client.put(order_entity)
+    print("order entity")
+    print(order_entity)
 
     return order, 200
 
