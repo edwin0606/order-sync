@@ -59,7 +59,9 @@ def order_create():
         'status': 'pending'
     }
     incomplete_key = ds_client.key('Order')
+    print("Conectado con la base de datos")
     order_entity = datastore.Entity(key=incomplete_key)
+    print(order_entity)
     order_entity.update(order)
     ds_client.put(order_entity)
 
